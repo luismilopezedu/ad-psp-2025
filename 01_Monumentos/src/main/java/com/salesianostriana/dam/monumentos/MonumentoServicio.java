@@ -2,6 +2,7 @@ package com.salesianostriana.dam.monumentos;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,14 +14,25 @@ public class MonumentoServicio {
     private final MonumentoRepository monumentoRepository;
 
     public List<Monumento> getAll() {
-        return monumentoRepository.findAll();
+        List<Monumento> result =  monumentoRepository.findAll();
+
+        if (result.isEmpty())
+            throw new MonumentoNotFoundException("No hay monumentos registrados");
+
+        return result;
     }
 
-    public Optional<Monumento> getById(Long id) {
-        return monumentoRepository.findById(id);
+    public Monumento getById(Long id) {
+        return monumentoRepository.findById(id)
+                .orElseThrow(() -> new MonumentoNotFoundException(id));
     }
 
     public Monumento save(CrearMonumentoCmd cmd) {
+
+        if (!StringUtils.hasText(cmd.nombre())) {
+            throw new IllegalArgumentException("Error al crear un monumento");
+        }
+
         return monumentoRepository.save(cmd.toEntity());
     }
 

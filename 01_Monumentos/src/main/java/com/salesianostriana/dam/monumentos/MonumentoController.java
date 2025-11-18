@@ -2,16 +2,14 @@ package com.salesianostriana.dam.monumentos;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/monumento")
+@RequestMapping("/monumento/")
 @RequiredArgsConstructor
 public class MonumentoController {
 
@@ -28,10 +26,40 @@ public class MonumentoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<MonumentoResponse> getById(@PathVariable Long id){
-        return ResponseEntity.of(
+        /*return ResponseEntity.of(
                 servicio.getById(id)
                         .map(MonumentoResponse::of)
-        );
+        );*/
+        return ResponseEntity.ok(
+                MonumentoResponse.of(servicio.getById(id)));
+    }
+
+
+    @PostMapping
+    public ResponseEntity<MonumentoResponse> create(
+            @RequestBody CrearMonumentoCmd cmd
+    ) {
+        Monumento nuevo = servicio.save(cmd);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(MonumentoResponse.of(nuevo));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<MonumentoResponse> edit(
+            @PathVariable Long id,
+            @RequestBody CrearMonumentoCmd cmd) {
+
+        return ResponseEntity.ok(
+                MonumentoResponse.of(
+                    servicio.edit(cmd, id)
+        ));
+
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        servicio.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 
 
