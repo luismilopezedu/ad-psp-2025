@@ -27,6 +27,7 @@ Accesos:
 
 ## 3. Anotaciones esenciales
 
+- `@Tag` (a nivel de controlador)
 - `@Operation`
 - `@ApiResponses` / `@ApiResponse`
 - `@Parameter`

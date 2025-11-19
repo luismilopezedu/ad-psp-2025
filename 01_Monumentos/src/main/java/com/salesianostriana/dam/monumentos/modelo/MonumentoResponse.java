@@ -1,4 +1,4 @@
-package com.salesianostriana.dam.monumentos;
+package com.salesianostriana.dam.monumentos.modelo;
 
 public record MonumentoResponse(
         Long id,

@@ -1,4 +1,4 @@
-package com.salesianostriana.dam.monumentos;
+package com.salesianostriana.dam.monumentos.error;
 
 public class MonumentoNotFoundException extends RuntimeException{
 
