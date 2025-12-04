@@ -11,17 +11,17 @@ import java.net.URI;
 @RestControllerAdvice
 public class GlobalErrorController extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(MonumentoNotFoundException.class)
-    public ProblemDetail handleMonumentoNotFound(
-            MonumentoNotFoundException ex
+    @ExceptionHandler(NotFoundException.class)
+    public ProblemDetail handleNotFound(
+            NotFoundException ex
     ) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
                 HttpStatus.NOT_FOUND, ex.getMessage()
         );
 
-        problemDetail.setTitle("Monumento no encontrado");
+        problemDetail.setTitle("Entidad no encontrada");
         problemDetail.setType(
-                URI.create("http://dam.salesianos-triana.com/monumento-not-found"));
+                URI.create("http://dam.salesianos-triana.com/not-found"));
 
         return problemDetail;
     }

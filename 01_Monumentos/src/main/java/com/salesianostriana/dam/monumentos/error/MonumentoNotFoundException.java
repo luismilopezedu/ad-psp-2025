@@ -1,6 +1,6 @@
 package com.salesianostriana.dam.monumentos.error;
 
-public class MonumentoNotFoundException extends RuntimeException{
+public class MonumentoNotFoundException extends NotFoundException{
 
     public MonumentoNotFoundException() {
         super("Monumento no encontrado");

@@ -1,8 +1,7 @@
 package com.salesianostriana.dam.monumentos.modelo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.salesianostriana.dam.monumentos.TipoMonumento;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Data
@@ -21,6 +20,9 @@ public class Monumento {
     private String nombre;
     private String descripcion;
     private String url;
+
+    @Enumerated(EnumType.STRING)
+    private TipoMonumento tipo;
 
 
 }
