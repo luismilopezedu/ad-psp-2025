@@ -2,6 +2,8 @@ package com.salesianostriana.dam.modelado.repos;
 
 import com.salesianostriana.dam.modelado.modelo.Uso;
 import com.salesianostriana.dam.modelado.modelo.Usuario;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -18,4 +20,10 @@ public interface UsoRepository extends JpaRepository<Uso, Long> {
             order by u.fechaInicio DESC
             """)
     Optional<Uso> findByUsuarioOrderByFechaInicioDesc(Usuario usuario);
+
+
+
+    // Todos los usos de un usuario de forma paginada
+    Page<Uso> findByUsuarioId(Long usuarioId, Pageable pageable);
+
 }

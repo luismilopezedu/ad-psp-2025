@@ -11,6 +11,8 @@ import com.salesianostriana.dam.modelado.repos.EstacionRepository;
 import com.salesianostriana.dam.modelado.repos.UsoRepository;
 import com.salesianostriana.dam.modelado.repos.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -138,6 +140,10 @@ public class UsoService {
 
 
         return usoRepository.save(uso);
+    }
+
+    public Page<Uso> getByUsuario(Long usuarioId, Pageable pageable) {
+        return usoRepository.findByUsuarioId(usuarioId, pageable);
     }
 
 }

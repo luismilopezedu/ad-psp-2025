@@ -1,0 +1,10 @@
+/Users/lmlopez/Documents/repos-edu/ad-psp-2025/jpa-nplus1-lazy-bugs/src/main/java/com/example/demo/web/dto/CourseDetailsDto.java
+/Users/lmlopez/Documents/repos-edu/ad-psp-2025/jpa-nplus1-lazy-bugs/src/main/java/com/example/demo/domain/Student.java
+/Users/lmlopez/Documents/repos-edu/ad-psp-2025/jpa-nplus1-lazy-bugs/src/main/java/com/example/demo/domain/Course.java
+/Users/lmlopez/Documents/repos-edu/ad-psp-2025/jpa-nplus1-lazy-bugs/src/main/java/com/example/demo/web/CourseController.java
+/Users/lmlopez/Documents/repos-edu/ad-psp-2025/jpa-nplus1-lazy-bugs/src/main/java/com/example/demo/repository/StudentRepository.java
+/Users/lmlopez/Documents/repos-edu/ad-psp-2025/jpa-nplus1-lazy-bugs/src/main/java/com/example/demo/repository/CourseRepository.java
+/Users/lmlopez/Documents/repos-edu/ad-psp-2025/jpa-nplus1-lazy-bugs/src/main/java/com/example/demo/DemoApplication.java
+/Users/lmlopez/Documents/repos-edu/ad-psp-2025/jpa-nplus1-lazy-bugs/src/main/java/com/example/demo/config/DataSeeder.java
+/Users/lmlopez/Documents/repos-edu/ad-psp-2025/jpa-nplus1-lazy-bugs/src/main/java/com/example/demo/web/dto/CourseListItemDto.java
+/Users/lmlopez/Documents/repos-edu/ad-psp-2025/jpa-nplus1-lazy-bugs/src/main/java/com/example/demo/service/CourseService.java

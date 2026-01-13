@@ -1,0 +1,11 @@
+com/example/demo/DemoApplication.class
+com/example/demo/domain/Course.class
+com/example/demo/domain/Student.class
+com/example/demo/web/CourseController.class
+com/example/demo/web/dto/CourseDetailsDto$StudentDto.class
+com/example/demo/config/DataSeeder.class
+com/example/demo/repository/StudentRepository.class
+com/example/demo/repository/CourseRepository.class
+com/example/demo/service/CourseService.class
+com/example/demo/web/dto/CourseDetailsDto.class
+com/example/demo/web/dto/CourseListItemDto.class

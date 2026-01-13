@@ -3,4 +3,4 @@ INSERT INTO usuario (id, nombre, saldo, num_tarjeta, pin) SELECT x, CONCAT('Usua
 INSERT INTO bicicleta (id, esta_en_id, estado, marca, modelo) SELECT x, (MOD(x, 30) + 1), CASE WHEN MOD(x, 20)=0 THEN 'EN_MANTENIMIENTO' WHEN MOD(x, 7)=0 THEN 'RESERVADA' ELSE 'DISPONIBLE' END, CASE MOD(x, 6) WHEN 0 THEN 'Orbea' WHEN 1 THEN 'BH' WHEN 2 THEN 'Trek' WHEN 3 THEN 'Giant' WHEN 4 THEN 'Specialized' ELSE 'Decathlon' END, CONCAT('Modelo-', MOD(x, 40) + 1) FROM SYSTEM_RANGE(1, 600) t(x);
 INSERT INTO uso (id, coste, bicicleta_id, fecha_fin, fecha_inicio, fin_id, inicio_id, usuario_id) SELECT x, CAST(ROUND(0.50 + (RAND(x)*3.50), 2) AS DOUBLE), (MOD(x, 600) + 1), DATEADD('MINUTE', 10 + MOD(x, 90), DATEADD('MINUTE', x, TIMESTAMP '2025-01-01 08:00:00')), DATEADD('MINUTE', x, TIMESTAMP '2025-01-01 08:00:00'), (MOD(x + 7, 30) + 1), (MOD(x, 30) + 1), (MOD(x, 200) + 1) FROM SYSTEM_RANGE(1, 5000) t(x);
 
-alter sequence uso_seq restart with 5001;
+alter sequence uso_seq restart with 6001;
