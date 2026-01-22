@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
+import org.springframework.data.jpa.domain.PredicateSpecification;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.util.Objects;
 
@@ -45,4 +47,15 @@ public class Usuario {
     public final int hashCode() {
         return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
     }
+
+
+    public static class Specs {
+
+        public static PredicateSpecification<Usuario> numTarjeta(String numTarjeta) {
+            return (root, cb) ->
+                    numTarjeta == null ? null : cb.equal(root.get("numTarjeta"), numTarjeta);
+        }
+
+    }
+
 }

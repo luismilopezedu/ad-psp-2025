@@ -29,7 +29,8 @@ public class UsuarioService {
 
     public List<Usuario> filtrar(String nombre, String numTarjeta, Double saldoMinimo, Double saldoMaximo) {
         return usuarioRepository.findAll(
-                Specification.where(UsuarioSpecs.nombreContainsv4(nombre))
+                UsuarioSpecs.nombreContainsv4(nombre)
+                        .and(Usuario.Specs.numTarjeta(numTarjeta))
         );
     }
 
