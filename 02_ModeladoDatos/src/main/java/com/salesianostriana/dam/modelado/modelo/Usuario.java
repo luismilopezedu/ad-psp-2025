@@ -7,7 +7,6 @@ import jakarta.persistence.Id;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 import org.springframework.data.jpa.domain.PredicateSpecification;
-import org.springframework.data.jpa.domain.Specification;
 
 import java.util.Objects;
 
@@ -54,6 +53,17 @@ public class Usuario {
         public static PredicateSpecification<Usuario> numTarjeta(String numTarjeta) {
             return (root, cb) ->
                     numTarjeta == null ? null : cb.equal(root.get("numTarjeta"), numTarjeta);
+        }
+
+        public static PredicateSpecification<Usuario> saldoBetween(Double min, Double max) {
+            return (from, builder) -> {
+                Double realMin = (min != null) ? min : Double.NEGATIVE_INFINITY;
+                Double realMax = (max != null) ? max : Double.POSITIVE_INFINITY;
+
+                return builder.between(from.get("saldoMin"),  realMin, realMax);
+            };
+
+
         }
 
     }

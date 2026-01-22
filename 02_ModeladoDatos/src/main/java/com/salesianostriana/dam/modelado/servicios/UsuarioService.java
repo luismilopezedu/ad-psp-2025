@@ -3,6 +3,8 @@ package com.salesianostriana.dam.modelado.servicios;
 import com.salesianostriana.dam.modelado.modelo.Usuario;
 import com.salesianostriana.dam.modelado.repos.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.PredicateSpecification;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -29,8 +31,21 @@ public class UsuarioService {
 
     public List<Usuario> filtrar(String nombre, String numTarjeta, Double saldoMinimo, Double saldoMaximo) {
         return usuarioRepository.findAll(
-                UsuarioSpecs.nombreContainsv4(nombre)
-                        .and(Usuario.Specs.numTarjeta(numTarjeta))
+                PredicateSpecification.allOf(
+                        UsuarioSpecs.nombreContainsv4(nombre),
+                        Usuario.Specs.numTarjeta(numTarjeta)
+                )
+        );
+    }
+
+    public Page<Usuario> filtrarApiFluida(String nombre, String numTarjeta, Double saldoMinimo, Double saldoMaximo, Pageable pageable) {
+        return usuarioRepository.findBy(
+                PredicateSpecification.allOf(
+                        UsuarioSpecs.nombreContainsv4(nombre),
+                        Usuario.Specs.numTarjeta(numTarjeta),
+                        Usuario.Specs.saldoBetween(saldoMinimo, saldoMaximo)
+                ),
+                q -> q.page(pageable)
         );
     }
 
