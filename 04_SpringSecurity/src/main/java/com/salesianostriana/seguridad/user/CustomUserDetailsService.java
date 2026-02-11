@@ -1,4 +1,4 @@
-package com.salesianostriana.seguridad;
+package com.salesianostriana.seguridad.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

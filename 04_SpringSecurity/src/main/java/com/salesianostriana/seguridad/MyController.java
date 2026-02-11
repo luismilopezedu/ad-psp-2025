@@ -14,11 +14,28 @@ public class MyController {
         return "Hello World!";
     }
 
-    @PreAuthorize("hasRole('ADMIN') and hasRole('MANAGER')")
+    @GetMapping("/user")
+    public String user() {
+        return "Hello User!";
+    }
+
+    //@PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin")
     public String admin() {
         return "Hello Admin!";
     }
+
+    @GetMapping("/admin/list")
+    public String adminList() {
+        return "One List";
+    }
+
+    @GetMapping("/admin/detail")
+    public String adminDetail() {
+        return "One Detail";
+    }
+
+
 
 }
 

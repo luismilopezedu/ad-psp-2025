@@ -1,4 +1,4 @@
-package com.salesianostriana.seguridad;
+package com.salesianostriana.seguridad.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
