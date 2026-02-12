@@ -1,6 +1,8 @@
 package com.salesianostriana.seguridad.security;
 
 
+import com.salesianostriana.seguridad.security.error.JwtAuthenticationEntryPoint;
+import com.salesianostriana.seguridad.security.jwt.JwtAuthenticationFilter;
 import com.salesianostriana.seguridad.user.User;
 import com.salesianostriana.seguridad.user.UserRepository;
 import jakarta.annotation.PostConstruct;
@@ -17,6 +19,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableMethodSecurity
@@ -26,6 +29,9 @@ public class SecurityConfig {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -34,7 +40,9 @@ public class SecurityConfig {
                 .httpBasic(basic -> basic.disable())
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .csrf(csrf -> csrf.disable());
+                .csrf(csrf -> csrf.disable())
+                .exceptionHandling(excepz ->
+                        excepz.authenticationEntryPoint(jwtAuthenticationEntryPoint));
 
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers("/error").permitAll()
@@ -42,6 +50,7 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
         );
 
+        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -63,7 +72,7 @@ public class SecurityConfig {
                 .build());
 
         userRepository.save(User.builder()
-                .username("user")
+                .username("pepe")
                 .password(passwordEncoder.encode("user"))
                 .enabled(true)
                 .role("USER")
