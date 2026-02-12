@@ -52,7 +52,7 @@ public class Usuario {
 
         public static PredicateSpecification<Usuario> numTarjeta(String numTarjeta) {
             return (root, cb) ->
-                    numTarjeta == null ? null : cb.equal(root.get("numTarjeta"), numTarjeta);
+                    numTarjeta == null ? cb.and() : cb.equal(root.get("numTarjeta"), numTarjeta);
         }
 
         public static PredicateSpecification<Usuario> saldoBetween(Double min, Double max) {
