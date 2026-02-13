@@ -1,6 +1,7 @@
 package com.salesianostriana.seguridad.security;
 
 
+import com.salesianostriana.seguridad.security.error.JwtAccessDeniedHandler;
 import com.salesianostriana.seguridad.security.error.JwtAuthenticationEntryPoint;
 import com.salesianostriana.seguridad.security.jwt.JwtAuthenticationFilter;
 import com.salesianostriana.seguridad.user.User;
@@ -31,6 +32,7 @@ public class SecurityConfig {
     private final PasswordEncoder passwordEncoder;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
 
     @Bean
@@ -42,11 +44,15 @@ public class SecurityConfig {
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(csrf -> csrf.disable())
                 .exceptionHandling(excepz ->
-                        excepz.authenticationEntryPoint(jwtAuthenticationEntryPoint));
+                        excepz
+                                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                                .accessDeniedHandler(jwtAccessDeniedHandler)
+                );
 
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers("/error").permitAll()
                 .requestMatchers(HttpMethod.POST, "/auth/register", "/auth/login").permitAll()
+                .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
         );
 
