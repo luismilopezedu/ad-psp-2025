@@ -1,5 +1,6 @@
 package com.salesianostriana.seguridad.user;
 
+import com.salesianostriana.seguridad.security.auth.AuthService;
 import com.salesianostriana.seguridad.security.jwt.JwtAccessTokenService;
 import com.salesianostriana.seguridad.user.dto.LoginRequest;
 import com.salesianostriana.seguridad.user.dto.LoginResponse;
@@ -18,25 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final JwtAccessTokenService jwtAccessTokenService;
-    private final AuthenticationManager authManager;
+    private final AuthService authService;
 
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> doLogin(@RequestBody LoginRequest loginRequest) {
-
-        // Autenticamos al usuario con authManager.
-        // Si la autenticación va bien, fabricamos el token y lo devolvemos
-
-        Authentication authentication = authManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginRequest.username(), loginRequest.password())
-        );
-
-        String token = jwtAccessTokenService.generateAccessToken(loginRequest.username());
-
         return ResponseEntity.status(201)
-                .body(new LoginResponse(loginRequest.username(), token));
+                .body(authService.doLogin(loginRequest));
 
     }
 
