@@ -1,4 +1,4 @@
-package com.salesianostriana.seguridad.user;
+package com.salesianostriana.seguridad.user.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -10,9 +10,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "user_entity")
@@ -24,21 +23,40 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private UUID id;
 
     @Column(unique = true)
     private String username;
     private String password;
+    private String email;
 
     @Builder.Default
     private boolean enabled = true;
 
     @Builder.Default
-    private String role = "USER";
+    private boolean accountNonExpired = true;
+
+    @Builder.Default
+    private boolean accountNonLocked = true;
+
+    @Builder.Default
+    private boolean credentialsNonExpired = true;
+
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Builder.Default
+    private Set<UserRole> roles = new HashSet<>();
+
+    /*@Builder.Default
+    private String role = "USER";*/
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Set.of(new SimpleGrantedAuthority("ROLE_" + this.role));
+
+        return roles.stream()
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.name()))
+                .collect(Collectors.toSet());
+
     }
 
 
