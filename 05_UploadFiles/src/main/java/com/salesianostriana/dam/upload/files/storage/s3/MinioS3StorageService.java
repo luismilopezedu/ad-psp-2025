@@ -74,7 +74,7 @@ public class MinioS3StorageService implements StorageService {
                     .bucket(bucket)
                     .key(key)
                     .contentType(contentType)
-                    // Si quieres: .metadata(Map.of("originalFilename", originalFilename))
+                    .metadata(Map.of("original-filename", originalFilename))
                     .build();
 
             s3.putObject(putReq, RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
