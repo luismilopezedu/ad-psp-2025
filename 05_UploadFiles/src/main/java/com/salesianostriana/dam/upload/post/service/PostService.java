@@ -1,8 +1,8 @@
 package com.salesianostriana.dam.upload.post.service;
 
 
-import com.salesianostriana.dam.upload.files.model.FileMetadata;
-import com.salesianostriana.dam.upload.files.service.StorageService;
+import com.salesianostriana.dam.upload.files.shared.model.FileMetadata;
+import com.salesianostriana.dam.upload.files.storage.StorageService;
 import com.salesianostriana.dam.upload.post.dto.CreatePostDto;
 import com.salesianostriana.dam.upload.post.model.Post;
 import com.salesianostriana.dam.upload.post.repo.PostRepository;
