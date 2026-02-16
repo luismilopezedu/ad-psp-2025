@@ -41,14 +41,14 @@ public class JwtAccessTokenService {
     }
 
     public String generateAccessToken(User user) {
-        return generateAccessToken(user.getUsername());
+        return generateAccessToken(user.getId().toString());
     }
 
-    public String generateAccessToken(String username) {
+    public String generateAccessToken(String uuid) {
         return Jwts.builder()
                 .header().setType(TOKEN_TYPE)
                 .and()
-                .subject(username)
+                .subject(uuid)
                 .issuedAt(new Date())
                 .expiration(Date.from(
                                 Instant.now()
@@ -73,7 +73,7 @@ public class JwtAccessTokenService {
         return true;
     }
 
-    public String getUsernameFromAccessToken(String token) {
+    public String getUserIdFromAccessToken(String token) {
         return jwtParser
                 .parseSignedClaims(token)
                 .getBody()

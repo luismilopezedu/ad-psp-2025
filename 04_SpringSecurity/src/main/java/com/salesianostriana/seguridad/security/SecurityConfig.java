@@ -92,14 +92,21 @@ public class SecurityConfig {
                 .username("admin")
                 .password(passwordEncoder.encode("admin"))
                 .enabled(true)
+                .roles(Set.of(UserRole.ADMIN))
+                .build());
+
+        userRepository.save(User.builder()
+                .username("user")
+                .password(passwordEncoder.encode("user"))
+                .enabled(true)
                 .roles(Set.of(UserRole.USER))
                 .build());
 
         userRepository.save(User.builder()
-                .username("pepe")
-                .password(passwordEncoder.encode("user"))
+                .username("manager")
+                .password(passwordEncoder.encode("manager"))
                 .enabled(true)
-                .roles(Set.of(UserRole.ADMIN))
+                .roles(Set.of(UserRole.MANAGER))
                 .build());
     }
 
