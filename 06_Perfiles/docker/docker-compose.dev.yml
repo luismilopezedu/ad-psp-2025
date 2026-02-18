@@ -1,0 +1,32 @@
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: miapp-dev-postgres
+    environment:
+      POSTGRES_DB: app_dev
+      POSTGRES_USER: app_dev
+      POSTGRES_PASSWORD: app_dev_pwd
+    ports:
+      - "5433:5432"
+    # Datos en memoria (se pierden al reiniciar el contenedor)
+    tmpfs:
+      - /var/lib/postgresql/data:rw,noexec,nosuid,size=512m
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U app_dev -d app_dev"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  pgadmin:
+    image: dpage/pgadmin4:8
+    container_name: miapp-dev-pgadmin
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@local.dev
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    ports:
+      - "5050:80"

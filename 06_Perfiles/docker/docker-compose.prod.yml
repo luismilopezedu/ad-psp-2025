@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: miapp-prod-postgres
+    environment:
+      POSTGRES_DB: app_prod
+      POSTGRES_USER: app_prod
+      POSTGRES_PASSWORD: app_prod_pwd
+    ports:
+      - "5434:5432"
+    volumes:
+      - miapp_prod_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U app_prod -d app_prod"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  miapp_prod_pgdata:
+    driver: local
